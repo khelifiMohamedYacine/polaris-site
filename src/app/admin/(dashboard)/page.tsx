@@ -1,24 +1,19 @@
 import Link from "next/link";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { queryOne } from "@/lib/db";
 import { createDraftProperty } from "@/lib/actions/properties";
 
-async function count(table: string, match: Record<string, string>) {
-  const admin = createAdminClient();
-  let query = admin.from(table).select("id", { count: "exact", head: true });
-  for (const [key, value] of Object.entries(match)) {
-    query = query.eq(key, value);
-  }
-  const { count: c } = await query;
-  return c ?? 0;
-}
-
 export default async function AdminDashboardPage() {
-  const [published, draft, available, newInquiries] = await Promise.all([
-    count("properties", { publication_status: "published" }),
-    count("properties", { publication_status: "draft" }),
-    count("properties", { status: "available" }),
-    count("inquiries", { status: "new" }),
-  ]);
+  const counts = await queryOne<{
+    published: number;
+    draft: number;
+    available: number;
+    new_inquiries: number;
+  }>(`SELECT
+      (SELECT count(*)::int FROM properties WHERE publication_status = 'published') AS published,
+      (SELECT count(*)::int FROM properties WHERE publication_status = 'draft') AS draft,
+      (SELECT count(*)::int FROM properties WHERE status = 'available') AS available,
+      (SELECT count(*)::int FROM inquiries WHERE status = 'new') AS new_inquiries`);
+  const { published, draft, available, new_inquiries: newInquiries } = counts!;
 
   const stats = [
     { label: "Projets publiés", value: published, href: "/admin/properties" },

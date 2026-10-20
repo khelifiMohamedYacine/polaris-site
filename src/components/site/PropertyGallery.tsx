@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import type { PropertyImage } from "@/types/database";
-import { getPublicImageUrl } from "@/lib/storage";
+import { imageUrl } from "@/lib/storage";
 
 export function PropertyGallery({
   images,
@@ -28,7 +28,7 @@ export function PropertyGallery({
     <div>
       <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-navy-light">
         <Image
-          src={getPublicImageUrl(images[active].storage_path)}
+          src={imageUrl(images[active].id)}
           alt={images[active].caption || alt}
           fill
           priority
@@ -50,7 +50,7 @@ export function PropertyGallery({
               aria-label={`${alt} ${i + 1}`}
             >
               <Image
-                src={getPublicImageUrl(img.storage_path)}
+                src={imageUrl(img.id)}
                 alt=""
                 fill
                 className="object-cover"

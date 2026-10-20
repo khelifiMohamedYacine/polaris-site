@@ -1,14 +1,9 @@
-import { createAdminClient } from "@/lib/supabase/admin";
+import { queryOne } from "@/lib/db";
 import { SettingsForm } from "@/components/admin/SettingsForm";
 import type { SiteSettings } from "@/types/database";
 
 export default async function AdminSettingsPage() {
-  const admin = createAdminClient();
-  const { data } = await admin
-    .from("site_settings")
-    .select("*")
-    .eq("id", true)
-    .maybeSingle();
+  const settings = await queryOne<SiteSettings>("SELECT * FROM site_settings WHERE id = true");
 
   return (
     <div className="max-w-2xl">
@@ -16,7 +11,7 @@ export default async function AdminSettingsPage() {
       <p className="text-navy/60 mb-8">
         Ces informations apparaissent sur le site public (contact, pied de page, bouton WhatsApp).
       </p>
-      <SettingsForm settings={data as SiteSettings | null} />
+      <SettingsForm settings={settings} />
     </div>
   );
 }

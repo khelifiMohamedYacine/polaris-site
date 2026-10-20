@@ -1,7 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { NextResponse, type NextRequest } from "next/server";
 import { routing } from "./i18n/routing";
-import { updateSession } from "./lib/supabase/middleware";
+import { SESSION_COOKIE, verifySessionToken } from "./lib/auth/session";
 
 const handleIntl = createMiddleware(routing);
 
@@ -9,7 +9,7 @@ export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith("/admin")) {
-    const { response, user } = await updateSession(request);
+    const user = await verifySessionToken(request.cookies.get(SESSION_COOKIE)?.value);
 
     const isLoginPage = pathname === "/admin/login";
     if (!user && !isLoginPage) {
@@ -22,7 +22,7 @@ export default async function middleware(request: NextRequest) {
       url.pathname = "/admin";
       return NextResponse.redirect(url);
     }
-    return response;
+    return NextResponse.next();
   }
 
   return handleIntl(request);

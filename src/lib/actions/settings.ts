@@ -1,16 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createClient } from "@/lib/supabase/server";
-import { createAdminClient } from "@/lib/supabase/admin";
-
-async function assertAdmin() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new Error("Non autorisé.");
-}
+import { query } from "@/lib/db";
+import { assertAdmin } from "@/lib/auth/current";
 
 export type SaveSettingsState = { error: string | null; success?: boolean };
 
@@ -19,21 +11,25 @@ export async function updateSiteSettings(
   formData: FormData,
 ): Promise<SaveSettingsState> {
   await assertAdmin();
-  const admin = createAdminClient();
+  const field = (name: string) => String(formData.get(name) || "") || null;
 
-  const { error } = await admin
-    .from("site_settings")
-    .update({
-      company_phone: String(formData.get("company_phone") || "") || null,
-      whatsapp_number: String(formData.get("whatsapp_number") || "") || null,
-      company_email: String(formData.get("company_email") || "") || null,
-      company_address: String(formData.get("company_address") || "") || null,
-      bio_fr: String(formData.get("bio_fr") || "") || null,
-      bio_ar: String(formData.get("bio_ar") || "") || null,
-    })
-    .eq("id", true);
-
-  if (error) return { error: error.message };
+  try {
+    await query(
+      `UPDATE site_settings SET company_phone = $1, whatsapp_number = $2, company_email = $3,
+         company_address = $4, bio_fr = $5, bio_ar = $6
+       WHERE id = true`,
+      [
+        field("company_phone"),
+        field("whatsapp_number"),
+        field("company_email"),
+        field("company_address"),
+        field("bio_fr"),
+        field("bio_ar"),
+      ],
+    );
+  } catch (err) {
+    return { error: err instanceof Error ? err.message : "Échec de l'enregistrement." };
+  }
 
   revalidatePath("/admin/settings");
   revalidatePath("/[locale]", "page");

@@ -1,6 +1,13 @@
 # Render Blueprint — https://render.com/docs/blueprint-spec
-# Secrets are marked `sync: false`: Render asks for their values when the
-# Blueprint is first applied, and they are never stored in this file.
+# Values marked `sync: false` are entered once in the Render dashboard and are
+# never stored in this file.
+databases:
+  - name: polaris-db
+    plan: free
+    region: frankfurt
+    databaseName: polaris
+    user: polaris
+
 services:
   - type: web
     name: polaris-construction
@@ -13,14 +20,16 @@ services:
     envVars:
       - key: NODE_VERSION
         value: "22"
-      - key: NEXT_PUBLIC_SUPABASE_URL
+      - key: DATABASE_URL
+        fromDatabase:
+          name: polaris-db
+          property: connectionString
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
         sync: false
-      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+      - key: ADMIN_PASSWORD
         sync: false
-      - key: SUPABASE_SERVICE_ROLE_KEY
-        sync: false
-      - key: NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET
-        value: property-images
       - key: NEXT_PUBLIC_SITE_URL
         sync: false
       - key: RESEND_API_KEY

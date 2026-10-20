@@ -1,9 +1,4 @@
-const BUCKET =
-  process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET || "property-images";
-
-export function getPublicImageUrl(storagePath: string): string {
-  const base = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  return `${base}/storage/v1/object/public/${BUCKET}/${storagePath}`;
+/** Photos are stored in the database and served by the /api/images/[id] route. */
+export function imageUrl(imageId: string): string {
+  return `/api/images/${imageId}`;
 }
-
-export { BUCKET as STORAGE_BUCKET };

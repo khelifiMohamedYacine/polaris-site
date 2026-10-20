@@ -1,38 +1,22 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createClient } from "@/lib/supabase/server";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { query } from "@/lib/db";
+import { assertAdmin } from "@/lib/auth/current";
 import type { InquiryStatus } from "@/types/database";
-
-async function assertAdmin() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new Error("Non autorisé.");
-}
 
 export async function updateInquiryStatus(id: string, status: InquiryStatus) {
   await assertAdmin();
-  const admin = createAdminClient();
-  await admin.from("inquiries").update({ status }).eq("id", id);
+  await query("UPDATE inquiries SET status = $1 WHERE id = $2", [status, id]);
   revalidatePath("/admin/inquiries");
 }
 
 export async function addInquiryNote(id: string, note: string) {
-  await assertAdmin();
+  const admin = await assertAdmin();
   if (!note.trim()) return;
-  const admin = createAdminClient();
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  await admin.from("inquiry_notes").insert({
-    inquiry_id: id,
-    author_id: user?.id ?? null,
-    note: note.trim(),
-  });
+  await query(
+    "INSERT INTO inquiry_notes (inquiry_id, author_id, note) VALUES ($1, $2, $3)",
+    [id, admin.uid, note.trim()],
+  );
   revalidatePath("/admin/inquiries");
 }

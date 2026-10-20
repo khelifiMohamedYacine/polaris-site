@@ -2,10 +2,9 @@
 
 import { useRef, useState, useTransition } from "react";
 import Image from "next/image";
-import { createClient } from "@/lib/supabase/client";
-import { getPublicImageUrl, STORAGE_BUCKET } from "@/lib/storage";
+import { useRouter } from "next/navigation";
+import { imageUrl } from "@/lib/storage";
 import {
-  attachPropertyImage,
   removePropertyImage,
   setCoverImage,
   moveImage,
@@ -23,6 +22,7 @@ export function ImageUploader({
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const sorted = [...images].sort((a, b) => {
     if (a.is_cover !== b.is_cover) return a.is_cover ? -1 : 1;
@@ -33,29 +33,29 @@ export function ImageUploader({
     if (!files || files.length === 0) return;
     setError(null);
     setUploading(true);
-    const supabase = createClient();
 
     try {
+      // One request per photo keeps each upload small and lets the others succeed if one fails.
+      const errors: string[] = [];
       for (const file of Array.from(files)) {
-        if (!file.type.startsWith("image/")) continue;
         if (file.size > 8 * 1024 * 1024) {
-          setError("Chaque photo doit faire moins de 8 Mo.");
+          errors.push(`${file.name} : la photo doit faire moins de 8 Mo.`);
           continue;
         }
-        const ext = file.name.split(".").pop() || "jpg";
-        const path = `${propertyId}/${crypto.randomUUID()}.${ext}`;
-
-        const { error: uploadError } = await supabase.storage
-          .from(STORAGE_BUCKET)
-          .upload(path, file, { cacheControl: "3600", upsert: false });
-
-        if (uploadError) {
-          setError("Échec de l'envoi d'une photo. Merci de réessayer.");
+        const body = new FormData();
+        body.append("files", file);
+        const res = await fetch(`/api/admin/properties/${propertyId}/images`, { method: "POST", body });
+        if (!res.ok) {
+          errors.push(`${file.name} : échec de l'envoi.`);
           continue;
         }
-
-        await attachPropertyImage(propertyId, path);
+        const result = (await res.json()) as { errors: string[] };
+        errors.push(...result.errors);
       }
+      if (errors.length > 0) setError(errors.join(" "));
+      router.refresh();
+    } catch {
+      setError("Échec de l'envoi d'une photo. Merci de réessayer.");
     } finally {
       setUploading(false);
       if (inputRef.current) inputRef.current.value = "";
@@ -92,7 +92,7 @@ export function ImageUploader({
             >
               <div className="relative aspect-square">
                 <Image
-                  src={getPublicImageUrl(img.storage_path)}
+                  src={imageUrl(img.id)}
                   alt=""
                   fill
                   className="object-cover"

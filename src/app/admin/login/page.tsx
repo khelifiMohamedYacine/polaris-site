@@ -31,8 +31,10 @@ export default function AdminLoginPage() {
               Adresse e-mail
             </label>
             <input
+              key={state.email}
               name="email"
               type="email"
+              defaultValue={state.email}
               required
               autoComplete="username"
               className="w-full rounded-lg border border-line px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50"

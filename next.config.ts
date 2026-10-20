@@ -21,11 +21,8 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "*.supabase.co" },
-    ],
-  },
+  // Database drivers load native/WASM files at runtime — keep them out of the bundle.
+  serverExternalPackages: ["pg", "@electric-sql/pglite"],
 };
 
 export default withNextIntl(nextConfig);

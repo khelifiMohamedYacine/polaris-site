@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { query, queryOne } from "@/lib/db";
 import { PropertyForm } from "@/components/admin/PropertyForm";
 import { ImageUploader } from "@/components/admin/ImageUploader";
 import { DeletePropertyButton } from "@/components/admin/DeletePropertyButton";
@@ -12,28 +12,21 @@ export default async function EditPropertyPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const admin = createAdminClient();
+  if (!/^[0-9a-f-]{36}$/i.test(id)) notFound();
 
-  const { data: property } = await admin
-    .from("properties")
-    .select("*")
-    .eq("id", id)
-    .maybeSingle();
-
+  const property = await queryOne<Property>("SELECT * FROM properties WHERE id = $1", [id]);
   if (!property) notFound();
 
-  const [{ data: translations }, { data: images }] = await Promise.all([
-    admin.from("property_translations").select("*").eq("property_id", id),
-    admin
-      .from("property_images")
-      .select("*")
-      .eq("property_id", id)
-      .order("sort_order", { ascending: true }),
+  const [translations, images] = await Promise.all([
+    query<PropertyTranslation>("SELECT * FROM property_translations WHERE property_id = $1", [id]),
+    query<PropertyImage>(
+      `SELECT id, property_id, caption, sort_order, is_cover, created_at
+       FROM property_images WHERE property_id = $1 ORDER BY sort_order`,
+      [id],
+    ),
   ]);
 
-  const fr = (translations as PropertyTranslation[] | null)?.find(
-    (t) => t.locale === "fr",
-  );
+  const fr = translations.find((t) => t.locale === "fr");
 
   return (
     <div className="max-w-3xl">
@@ -47,16 +40,10 @@ export default async function EditPropertyPage({
 
       <div className="mb-10">
         <h2 className="font-display text-lg text-navy mb-4">Photos</h2>
-        <ImageUploader
-          propertyId={id}
-          images={(images as PropertyImage[] | null) ?? []}
-        />
+        <ImageUploader propertyId={id} images={images} />
       </div>
 
-      <PropertyForm
-        property={property as Property}
-        translations={(translations as PropertyTranslation[] | null) ?? []}
-      />
+      <PropertyForm property={property} translations={translations} />
 
       <div className="mt-12 pt-6 border-t border-line">
         <DeletePropertyButton propertyId={id} name={fr?.name || "ce projet"} />

@@ -1,9 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { getAllProperties } from "@/lib/data";
 import { createDraftProperty } from "@/lib/actions/properties";
-import { getPublicImageUrl } from "@/lib/storage";
-import type { PropertyWithRelations } from "@/types/database";
+import { imageUrl } from "@/lib/storage";
 
 const STATUS_LABEL: Record<string, string> = {
   available: "Disponible",
@@ -27,13 +26,7 @@ const PUB_STYLE: Record<string, string> = {
 };
 
 export default async function AdminPropertiesPage() {
-  const admin = createAdminClient();
-  const { data } = await admin
-    .from("properties")
-    .select("*, property_translations(*), property_images(*)")
-    .order("created_at", { ascending: false });
-
-  const properties = (data as PropertyWithRelations[] | null) ?? [];
+  const properties = await getAllProperties();
 
   return (
     <div>
@@ -68,7 +61,7 @@ export default async function AdminPropertiesPage() {
                 <div className="relative aspect-[4/3] bg-navy/5">
                   {cover ? (
                     <Image
-                      src={getPublicImageUrl(cover.storage_path)}
+                      src={imageUrl(cover.id)}
                       alt=""
                       fill
                       className="object-cover"

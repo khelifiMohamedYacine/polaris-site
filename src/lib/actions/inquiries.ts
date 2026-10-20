@@ -1,7 +1,6 @@
 "use server";
 
-import { createAdminClient } from "@/lib/supabase/admin";
-import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { query } from "@/lib/db";
 import { inquirySchema } from "@/lib/validation";
 import { generateInquiryReference } from "@/lib/format";
 import { sendInquiryNotification } from "@/lib/notifications";
@@ -40,31 +39,32 @@ export async function submitInquiry(
     return { status: "success", reference: generateInquiryReference() };
   }
 
-  if (!isSupabaseConfigured) {
-    console.error("submitInquiry skipped: Supabase is not configured");
-    return { status: "error", message: "generic" };
-  }
-
   const reference = generateInquiryReference();
-  const supabase = createAdminClient();
+  let inquiryId: string;
 
-  const { error } = await supabase.from("inquiries").insert({
-    reference,
-    property_id: parsed.data.propertyId,
-    full_name: parsed.data.fullName,
-    phone: parsed.data.phone,
-    email: parsed.data.email || null,
-    message: parsed.data.message,
-    locale: parsed.data.locale,
-  });
-
-  if (error) {
-    console.error("submitInquiry insert failed:", error.message);
+  try {
+    const [row] = await query<{ id: string }>(
+      `INSERT INTO inquiries (reference, property_id, full_name, phone, email, message, locale)
+       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`,
+      [
+        reference,
+        parsed.data.propertyId,
+        parsed.data.fullName,
+        parsed.data.phone,
+        parsed.data.email || null,
+        parsed.data.message,
+        parsed.data.locale,
+      ],
+    );
+    inquiryId = row.id;
+  } catch (err) {
+    console.error("submitInquiry insert failed:", err);
     return { status: "error", message: "generic" };
   }
 
   // Fire-and-forget: the DB row is the source of truth, notification is best-effort.
   sendInquiryNotification({
+    inquiryId,
     reference,
     fullName: parsed.data.fullName,
     phone: parsed.data.phone,

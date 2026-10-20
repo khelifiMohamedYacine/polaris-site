@@ -3,7 +3,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { Locale, PropertyWithRelations } from "@/types/database";
 import { translationFor } from "@/lib/data";
-import { getPublicImageUrl } from "@/lib/storage";
+import { imageUrl } from "@/lib/storage";
 import { formatPrice } from "@/lib/format";
 import { StatusBadge, NewBadge } from "./StatusBadge";
 
@@ -27,7 +27,7 @@ export function PropertyCard({
       <div className="relative aspect-[4/3] bg-navy-light">
         {cover ? (
           <Image
-            src={getPublicImageUrl(cover.storage_path)}
+            src={imageUrl(cover.id)}
             alt={translation.name}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"

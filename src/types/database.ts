@@ -39,7 +39,6 @@ export interface PropertyTranslation {
 export interface PropertyImage {
   id: string;
   property_id: string;
-  storage_path: string;
   caption: string | null;
   sort_order: number;
   is_cover: boolean;

@@ -1,9 +1,24 @@
 import "server-only";
-import { createClient } from "@/lib/supabase/server";
-import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { connection } from "next/server";
+import { query, queryOne } from "@/lib/db";
 import type { Locale, PropertyWithRelations, SiteSettings } from "@/types/database";
 
-const PROPERTY_SELECT = "*, property_translations(*), property_images(*)";
+// One query per property list: translations and image metadata (never the image bytes) as JSON arrays.
+const PROPERTY_SELECT = `
+  SELECT p.*,
+    COALESCE(
+      (SELECT json_agg(t) FROM property_translations t WHERE t.property_id = p.id),
+      '[]'::json
+    ) AS property_translations,
+    COALESCE(
+      (SELECT json_agg(json_build_object(
+          'id', i.id, 'property_id', i.property_id, 'caption', i.caption,
+          'sort_order', i.sort_order, 'is_cover', i.is_cover, 'created_at', i.created_at
+        ) ORDER BY i.sort_order)
+       FROM property_images i WHERE i.property_id = p.id),
+      '[]'::json
+    ) AS property_images
+  FROM properties p`;
 
 function sortImages(property: PropertyWithRelations): PropertyWithRelations {
   return {
@@ -15,62 +30,57 @@ function sortImages(property: PropertyWithRelations): PropertyWithRelations {
   };
 }
 
-export async function getPublishedProperties(): Promise<
-  PropertyWithRelations[]
-> {
-  if (!isSupabaseConfigured) return [];
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("properties")
-    .select(PROPERTY_SELECT)
-    .eq("publication_status", "published")
-    .order("created_at", { ascending: false });
+// Each reader calls connection() first: pages showing live data render per request,
+// never at build time (when the database may be unreachable or about to change).
 
-  if (error) {
-    console.error("getPublishedProperties failed:", error.message);
+export async function getPublishedProperties(): Promise<PropertyWithRelations[]> {
+  await connection();
+  try {
+    const rows = await query<PropertyWithRelations>(
+      `${PROPERTY_SELECT} WHERE p.publication_status = 'published' ORDER BY p.created_at DESC`,
+    );
+    return rows.map(sortImages);
+  } catch (err) {
+    console.error("getPublishedProperties failed:", err);
     return [];
   }
-  return (data as PropertyWithRelations[]).map(sortImages);
+}
+
+/** Every property regardless of publication status — admin only. */
+export async function getAllProperties(): Promise<PropertyWithRelations[]> {
+  await connection();
+  const rows = await query<PropertyWithRelations>(`${PROPERTY_SELECT} ORDER BY p.created_at DESC`);
+  return rows.map(sortImages);
 }
 
 export async function getPropertyBySlug(
   locale: Locale,
   slug: string,
 ): Promise<PropertyWithRelations | null> {
-  if (!isSupabaseConfigured) return null;
-  const supabase = await createClient();
+  await connection();
+  try {
+    // Switching language keeps the other locale's slug in the URL; resolve it
+    // anyway so the page can redirect to this locale's slug instead of 404ing.
+    const match =
+      (await queryOne<{ property_id: string }>(
+        "SELECT property_id FROM property_translations WHERE locale = $1 AND slug = $2",
+        [locale, slug],
+      )) ??
+      (await queryOne<{ property_id: string }>(
+        "SELECT property_id FROM property_translations WHERE slug = $1 LIMIT 1",
+        [slug],
+      ));
+    if (!match) return null;
 
-  const { data: localeMatch } = await supabase
-    .from("property_translations")
-    .select("property_id")
-    .eq("locale", locale)
-    .eq("slug", slug)
-    .maybeSingle();
-
-  // Switching language keeps the other locale's slug in the URL; resolve it
-  // anyway so the page can redirect to this locale's slug instead of 404ing.
-  let translation = localeMatch;
-  if (!translation) {
-    const { data: anyMatch } = await supabase
-      .from("property_translations")
-      .select("property_id")
-      .eq("slug", slug)
-      .limit(1)
-      .maybeSingle();
-    translation = anyMatch;
+    const property = await queryOne<PropertyWithRelations>(
+      `${PROPERTY_SELECT} WHERE p.id = $1 AND p.publication_status = 'published'`,
+      [match.property_id],
+    );
+    return property ? sortImages(property) : null;
+  } catch (err) {
+    console.error("getPropertyBySlug failed:", err);
+    return null;
   }
-
-  if (!translation) return null;
-
-  const { data, error } = await supabase
-    .from("properties")
-    .select(PROPERTY_SELECT)
-    .eq("id", translation.property_id)
-    .eq("publication_status", "published")
-    .maybeSingle();
-
-  if (error || !data) return null;
-  return sortImages(data as PropertyWithRelations);
 }
 
 /** Company details shown when the settings row is missing or a field is left empty in the admin. */
@@ -86,20 +96,15 @@ const DEFAULT_SETTINGS: SiteSettings = {
 };
 
 export async function getSiteSettings(): Promise<SiteSettings> {
-  if (!isSupabaseConfigured) return DEFAULT_SETTINGS;
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("site_settings")
-    .select("*")
-    .eq("id", true)
-    .maybeSingle();
-
-  if (error) {
-    console.error("getSiteSettings failed:", error.message);
+  await connection();
+  let stored: Partial<SiteSettings> = {};
+  try {
+    stored = (await queryOne<SiteSettings>("SELECT * FROM site_settings WHERE id = true")) ?? {};
+  } catch (err) {
+    console.error("getSiteSettings failed:", err);
     return DEFAULT_SETTINGS;
   }
 
-  const stored = (data ?? {}) as Partial<SiteSettings>;
   const merged = { ...DEFAULT_SETTINGS };
   for (const key of Object.keys(DEFAULT_SETTINGS) as (keyof SiteSettings)[]) {
     if (stored[key] != null && stored[key] !== "") {

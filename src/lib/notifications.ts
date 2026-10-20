@@ -1,7 +1,8 @@
 import "server-only";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { query, queryOne } from "@/lib/db";
 
 interface InquiryNotificationInput {
+  inquiryId: string;
   reference: string;
   fullName: string;
   phone: string;
@@ -24,12 +25,10 @@ export async function sendInquiryNotification(input: InquiryNotificationInput) {
     return;
   }
 
-  const supabase = createAdminClient();
-  const { data: job } = await supabase
-    .from("notification_jobs")
-    .insert({ channel: "email", status: "pending" })
-    .select("id")
-    .single();
+  const job = await queryOne<{ id: string }>(
+    "INSERT INTO notification_jobs (inquiry_id, channel, status) VALUES ($1, 'email', 'pending') RETURNING id",
+    [input.inquiryId],
+  );
 
   try {
     const { Resend } = await import("resend");
@@ -37,12 +36,10 @@ export async function sendInquiryNotification(input: InquiryNotificationInput) {
 
     let propertyLabel = "Demande générale";
     if (input.propertyId) {
-      const { data: translation } = await supabase
-        .from("property_translations")
-        .select("name")
-        .eq("property_id", input.propertyId)
-        .eq("locale", "fr")
-        .maybeSingle();
+      const translation = await queryOne<{ name: string }>(
+        "SELECT name FROM property_translations WHERE property_id = $1 AND locale = 'fr'",
+        [input.propertyId],
+      );
       if (translation?.name) propertyLabel = translation.name;
     }
 
@@ -65,21 +62,14 @@ export async function sendInquiryNotification(input: InquiryNotificationInput) {
     });
 
     if (job) {
-      await supabase
-        .from("notification_jobs")
-        .update({ status: "sent" })
-        .eq("id", job.id);
+      await query("UPDATE notification_jobs SET status = 'sent' WHERE id = $1", [job.id]);
     }
   } catch (err) {
     if (job) {
-      await supabase
-        .from("notification_jobs")
-        .update({
-          status: "failed",
-          attempts: 1,
-          last_error: err instanceof Error ? err.message : String(err),
-        })
-        .eq("id", job.id);
+      await query(
+        "UPDATE notification_jobs SET status = 'failed', attempts = 1, last_error = $1 WHERE id = $2",
+        [err instanceof Error ? err.message : String(err), job.id],
+      );
     }
     throw err;
   }
