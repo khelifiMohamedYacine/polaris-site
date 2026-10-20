@@ -52,17 +52,17 @@ export default async function HomePage({
           className="object-cover object-center"
         />
         <div className="container-page relative flex items-center min-h-[34rem] md:min-h-[40rem] py-16 md:py-24">
-          <div className="max-w-xl rounded-2xl bg-white/95 backdrop-blur-sm p-8 md:p-10 shadow-2xl">
-            <p className="text-gold text-sm tracking-widest uppercase mb-3">
+          <div className="max-w-xl rounded-2xl bg-navy/60 backdrop-blur-[2px] ring-1 ring-white/10 p-8 md:p-10 shadow-2xl">
+            <p className="text-gold-light text-sm font-semibold tracking-widest uppercase mb-3">
               {t("home.bioHeading")}
             </p>
-            <h2 className="font-display text-3xl text-navy mb-5">
+            <h2 className="font-display text-3xl text-ivory mb-5">
               {t("about.heading")}
             </h2>
-            <p className="text-navy/70 leading-relaxed">{t("home.bioBody")}</p>
+            <p className="text-ivory/85 leading-relaxed">{t("home.bioBody")}</p>
             <Link
               href="/a-propos"
-              className="inline-block mt-6 text-sm font-medium text-navy border-b border-gold pb-0.5 hover:text-gold transition-colors"
+              className="inline-block mt-6 text-sm font-medium text-ivory border-b border-gold pb-0.5 hover:text-gold transition-colors"
             >
               {t("home.bioLink")}
             </Link>

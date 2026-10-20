@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 export default async function AboutPage({
   params,
@@ -8,6 +10,7 @@ export default async function AboutPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("about");
+  const tNav = await getTranslations("nav");
 
   const values = [
     { title: t("value1Title"), body: t("value1Body") },
@@ -17,42 +20,84 @@ export default async function AboutPage({
 
   return (
     <div>
-      <section className="bg-navy text-ivory py-20 md:py-28">
-        <div className="container-page">
-          <h1 className="font-display text-4xl md:text-5xl">{t("pageTitle")}</h1>
+      {/* Hero: full-bleed photo with dark gradient for legibility */}
+      <section className="relative overflow-hidden text-ivory">
+        <Image
+          src="/house_one.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-navy/20" />
+        <div className="container-page relative flex flex-col justify-end min-h-[24rem] md:min-h-[32rem] pb-14 md:pb-20">
+          <p className="text-gold-light text-sm font-semibold tracking-widest uppercase mb-3">
+            {t("eyebrow")}
+          </p>
+          <h1 className="font-display text-4xl md:text-6xl max-w-3xl leading-tight">
+            {t("pageTitle")}
+          </h1>
         </div>
       </section>
 
-      <section className="container-page py-16 md:py-24 max-w-3xl">
-        <h2 className="font-display text-2xl text-navy mb-6">{t("heading")}</h2>
-        <div className="space-y-5 text-navy/75 leading-relaxed text-lg">
-          <p>{t("bodyP1")}</p>
-          <p>{t("bodyP2")}</p>
-          <p>{t("bodyP3")}</p>
-          <p>{t("bodyP4")}</p>
+      {/* Story: façade photo beside the text, then the closing line as a highlight */}
+      <section className="container-page py-16 md:py-24 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="relative aspect-[4/5] w-full max-w-md mx-auto lg:max-w-none rounded-2xl overflow-hidden card-shadow">
+          <Image
+            src="/residence-facade.jpeg"
+            alt={t("facadeAlt")}
+            fill
+            sizes="(min-width: 1024px) 560px, 100vw"
+            className="object-cover"
+          />
+        </div>
+        <div>
+          <h2 className="font-display text-3xl text-navy mb-6">{t("heading")}</h2>
+          <div className="space-y-4 text-navy/75 leading-relaxed">
+            <p>{t("bodyP1")}</p>
+            <p>{t("bodyP2")}</p>
+            <p>{t("bodyP3")}</p>
+          </div>
+          <blockquote className="mt-8 border-s-4 border-gold ps-5 font-display text-xl text-navy">
+            {t("bodyP4")}
+          </blockquote>
         </div>
       </section>
 
-      <section className="bg-white py-16 md:py-24">
-        <div className="container-page">
-          <h2 className="font-display text-2xl text-navy mb-10 text-center">
+      {/* Values: translucent dark cards over the photo */}
+      <section className="relative overflow-hidden text-ivory">
+        <Image
+          src="/house_one.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-bottom"
+        />
+        <div className="absolute inset-0 bg-navy/70" />
+        <div className="container-page relative py-20 md:py-28">
+          <h2 className="font-display text-3xl md:text-4xl mb-12 text-center">
             {t("valuesHeading")}
           </h2>
-          <div className="grid sm:grid-cols-3 gap-8">
-            {values.map((value) => (
+          <div className="grid sm:grid-cols-3 gap-6">
+            {values.map((value, i) => (
               <div
                 key={value.title}
-                className="text-center rounded-2xl ring-1 ring-line p-8"
+                className="rounded-2xl bg-navy/55 backdrop-blur-[2px] ring-1 ring-white/10 p-8"
               >
-                <div className="mx-auto mb-4 h-12 w-12 rounded-full bg-gold/15 flex items-center justify-center">
-                  <span className="h-2.5 w-2.5 rounded-full bg-gold" />
-                </div>
-                <h3 className="font-display text-lg text-navy mb-2">
-                  {value.title}
-                </h3>
-                <p className="text-sm text-navy/65">{value.body}</p>
+                <span className="font-display text-4xl text-gold">0{i + 1}</span>
+                <h3 className="mt-3 font-display text-xl mb-2">{value.title}</h3>
+                <p className="text-sm text-ivory/80 leading-relaxed">{value.body}</p>
               </div>
             ))}
+          </div>
+          <div className="mt-12 text-center">
+            <Link
+              href="/contact"
+              className="btn-gold inline-block px-8 py-3 rounded-full text-sm font-semibold tracking-wide"
+            >
+              {tNav("contact")}
+            </Link>
           </div>
         </div>
       </section>
