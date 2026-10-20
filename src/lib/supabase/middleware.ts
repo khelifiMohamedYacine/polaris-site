@@ -1,9 +1,11 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { isSupabaseConfigured } from "./config";
 
 /** Refreshes the Supabase auth session cookie on every admin request. */
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
+  if (!isSupabaseConfigured) return { response, user: null };
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

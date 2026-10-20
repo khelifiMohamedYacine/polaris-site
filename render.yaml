@@ -9,7 +9,7 @@ services:
     region: frankfurt
     buildCommand: npm ci && npm run build
     startCommand: npm start
-    healthCheckPath: /fr
+    healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
         value: "22"

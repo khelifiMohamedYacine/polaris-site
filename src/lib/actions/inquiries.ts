@@ -1,6 +1,7 @@
 "use server";
 
 import { createAdminClient } from "@/lib/supabase/admin";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { inquirySchema } from "@/lib/validation";
 import { generateInquiryReference } from "@/lib/format";
 import { sendInquiryNotification } from "@/lib/notifications";
@@ -37,6 +38,11 @@ export async function submitInquiry(
   // Honeypot triggered — silently pretend success to not tip off bots.
   if (parsed.data.website) {
     return { status: "success", reference: generateInquiryReference() };
+  }
+
+  if (!isSupabaseConfigured) {
+    console.error("submitInquiry skipped: Supabase is not configured");
+    return { status: "error", message: "generic" };
   }
 
   const reference = generateInquiryReference();

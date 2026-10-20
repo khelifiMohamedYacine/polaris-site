@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
 
 export type LoginState = { error: string | null };
 
@@ -14,6 +15,10 @@ export async function login(
 
   if (!email || !password) {
     return { error: "Merci de renseigner votre e-mail et votre mot de passe." };
+  }
+
+  if (!isSupabaseConfigured) {
+    return { error: "La base de données n'est pas encore connectée (Supabase non configuré)." };
   }
 
   const supabase = await createClient();

@@ -1,5 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
 import type { Locale, PropertyWithRelations, SiteSettings } from "@/types/database";
 
 const PROPERTY_SELECT = "*, property_translations(*), property_images(*)";
@@ -17,6 +18,7 @@ function sortImages(property: PropertyWithRelations): PropertyWithRelations {
 export async function getPublishedProperties(): Promise<
   PropertyWithRelations[]
 > {
+  if (!isSupabaseConfigured) return [];
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("properties")
@@ -35,6 +37,7 @@ export async function getPropertyBySlug(
   locale: Locale,
   slug: string,
 ): Promise<PropertyWithRelations | null> {
+  if (!isSupabaseConfigured) return null;
   const supabase = await createClient();
 
   const { data: localeMatch } = await supabase
@@ -83,6 +86,7 @@ const DEFAULT_SETTINGS: SiteSettings = {
 };
 
 export async function getSiteSettings(): Promise<SiteSettings> {
+  if (!isSupabaseConfigured) return DEFAULT_SETTINGS;
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("site_settings")
