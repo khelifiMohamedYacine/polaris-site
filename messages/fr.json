@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "title": "POLARIS Construction",
+    "description": "SARL POLARIS Construction — Promoteur immobilier en Algérie depuis 2015."
+  },
+  "nav": {
+    "home": "Accueil",
+    "properties": "Nos projets",
+    "about": "À propos",
+    "contact": "Contact",
+    "languageSwitch": "العربية"
+  },
+  "home": {
+    "heroTitle": "Bâtir aujourd'hui, penser à demain.",
+    "heroSubtitle": "Des résidences conçues avec exigence, où qualité, confort et confiance se rencontrent pour donner vie à vos projets immobiliers.",
+    "ctaProperties": "Découvrir nos projets",
+    "ctaContact": "Nous contacter",
+    "bioHeading": "SARL POLARIS Construction",
+    "bioBody": "Créée en 2015, SARL POLARIS Construction s'inscrit dans une démarche de qualité, de confiance et de pérennité dans le secteur de la construction immobilière en Algérie. Forte de son engagement et de son expérience, notre société œuvre à concevoir et à réaliser des logements qui répondent aux attentes de ses clients.",
+    "bioLink": "En savoir plus sur POLARIS",
+    "bioImageAlt": "Résidence réalisée par POLARIS Construction",
+    "featuredHeading": "Projets à la une",
+    "latestHeading": "Dernières réalisations",
+    "viewAll": "Voir tous les projets",
+    "noProperties": "De nouveaux projets seront bientôt publiés."
+  },
+  "land": {
+    "eyebrow": "Vous avez un terrain ?",
+    "heading": "Construisons ensemble sur votre terrain",
+    "intro": "Que vous souhaitiez bâtir la maison de vos rêves ou valoriser votre terrain, POLARIS Construction vous propose deux formules adaptées à votre projet.",
+    "houseTitle": "Construire votre maison",
+    "houseBody": "Vous possédez un terrain et souhaitez y construire votre maison ? Nous prenons en charge votre projet de A à Z : étude, conception, construction et finitions, avec le même niveau d'exigence que pour nos résidences.",
+    "houseCta": "Demander une étude",
+    "partnerTitle": "Partenariat terrain : 50 / 50",
+    "partnerBody": "Vous possédez un terrain constructible ? Confiez-le-nous : POLARIS Construction finance et réalise un immeuble résidentiel. Une fois le projet achevé, le bien final est partagé en deux — la moitié vous revient, l'autre moitié revient à POLARIS.",
+    "partnerPoint1": "Aucun investissement financier de votre part",
+    "partnerPoint2": "Nous prenons en charge les études, les permis et la construction",
+    "partnerPoint3": "Vous recevez 50 % des logements réalisés",
+    "partnerCta": "Proposer mon terrain",
+    "yourLand": "Votre terrain",
+    "ourBuild": "Notre construction",
+    "sharedResult": "50 % pour vous · 50 % pour POLARIS"
+  },
+  "status": {
+    "available": "Disponible",
+    "few_left": "Dernières disponibilités",
+    "sold_out": "Vendu",
+    "new": "Nouveau"
+  },
+  "properties": {
+    "pageTitle": "Nos projets",
+    "pageSubtitle": "Découvrez l'ensemble de nos résidences disponibles à travers l'Algérie.",
+    "filterCity": "Ville",
+    "filterStatus": "Disponibilité",
+    "filterAll": "Toutes",
+    "resultsCount": "{count} projet(s)",
+    "empty": "Aucun projet ne correspond à votre recherche pour le moment.",
+    "priceOnRequest": "Sur demande",
+    "viewProject": "Voir le projet"
+  },
+  "propertyDetail": {
+    "galleryAlt": "Photo du projet {name}",
+    "descriptionHeading": "Description",
+    "detailsHeading": "Caractéristiques",
+    "unitsAvailable": "Appartements disponibles",
+    "location": "Localisation",
+    "priceHeading": "Prix",
+    "priceOnRequest": "Prix sur demande",
+    "backToList": "← Retour à tous les projets",
+    "similarHeading": "Projets similaires disponibles",
+    "enquiryHeading": "Demande d'information",
+    "enquiryIntro": "Laissez-nous vos coordonnées, notre équipe vous recontactera rapidement au sujet de ce projet.",
+    "whatsappButton": "Contacter sur WhatsApp",
+    "whatsappMessage": "Bonjour, je souhaite obtenir plus d'informations sur le projet {name}.",
+    "soldOutNotice": "Ce projet est actuellement vendu. Vous pouvez tout de même nous contacter pour être informé(e) de projets similaires."
+  },
+  "about": {
+    "pageTitle": "À propos de POLARIS Construction",
+    "heading": "Notre histoire",
+    "bodyP1": "Créée en 2015, SARL POLARIS Construction s'inscrit dans une démarche de qualité, de confiance et de pérennité dans le secteur de la construction immobilière en Algérie.",
+    "bodyP2": "Forte de son engagement et de son expérience, notre société œuvre à concevoir et à réaliser des logements qui répondent aux attentes de ses clients, en accordant une attention particulière à la qualité des constructions, au confort des espaces et au soin apporté aux finitions.",
+    "bodyP3": "Parce que l'acquisition d'un logement représente une étape essentielle dans la vie de chacun, nous plaçons la satisfaction de nos clients au cœur de nos priorités. Notre ambition est de proposer des appartements neufs alliant fonctionnalité, qualité et bien-être, afin de faire de chaque projet immobilier un véritable lieu de vie.",
+    "bodyP4": "Avec POLARIS Construction, nous construisons bien plus que des logements : nous contribuons à réaliser vos projets de vie.",
+    "valuesHeading": "Nos valeurs",
+    "value1Title": "Qualité",
+    "value1Body": "Une attention constante portée à la qualité des constructions et au soin des finitions.",
+    "value2Title": "Confiance",
+    "value2Body": "Une relation transparente et durable avec chacun de nos clients.",
+    "value3Title": "Pérennité",
+    "value3Body": "Des projets conçus pour durer et accompagner vos projets de vie."
+  },
+  "contact": {
+    "pageTitle": "Contactez-nous",
+    "pageSubtitle": "Une question sur un projet ou sur nos services ? Notre équipe vous répond rapidement.",
+    "infoHeading": "Nos coordonnées",
+    "phone": "Téléphone",
+    "whatsapp": "WhatsApp",
+    "email": "E-mail",
+    "address": "Adresse",
+    "formHeading": "Envoyez-nous un message",
+    "whatsappMessage": "Bonjour, je souhaite obtenir des informations sur vos projets."
+  },
+  "form": {
+    "fullName": "Nom complet",
+    "fullNamePlaceholder": "Votre nom et prénom",
+    "phone": "Téléphone",
+    "phonePlaceholder": "Votre numéro de téléphone",
+    "email": "Adresse e-mail (facultatif)",
+    "emailPlaceholder": "nom@exemple.com",
+    "message": "Votre demande",
+    "messagePlaceholder": "Je souhaite recevoir plus d'informations sur ce projet...",
+    "required": "*",
+    "privacyNotice": "Vos informations sont utilisées uniquement pour traiter votre demande et ne seront jamais communiquées à des tiers.",
+    "submit": "Envoyer ma demande",
+    "submitting": "Envoi en cours...",
+    "successTitle": "Demande envoyée",
+    "successBody": "Merci, votre demande a bien été enregistrée sous la référence {reference}. Notre équipe vous recontactera très prochainement.",
+    "errorTitle": "Une erreur est survenue",
+    "errorBody": "Votre demande n'a pas pu être envoyée. Merci de réessayer ou de nous contacter directement par téléphone.",
+    "errorFullName": "Merci d'indiquer votre nom complet.",
+    "errorPhone": "Merci d'indiquer un numéro de téléphone valide.",
+    "errorMessage": "Merci de préciser votre demande.",
+    "errorGeneric": "Merci de vérifier les informations saisies."
+  },
+  "footer": {
+    "tagline": "Bâtir aujourd'hui, penser à demain.",
+    "linksHeading": "Navigation",
+    "contactHeading": "Contact",
+    "rights": "© {year} SARL POLARIS Construction. Tous droits réservés."
+  }
+}

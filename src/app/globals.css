@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand palette: off-white base (60%), charcoal grounding (30%), logo red accent (10%).
+     Token names are historical: navy = charcoal, ivory = off-white, gold = logo red. */
+  --color-navy: #1a1d20;
+  --color-navy-light: #2b303a;
+  --color-ivory: #f8f9fa;
+  --color-gold: #e0340f;
+  --color-gold-light: #f2582f;
+  --color-line: #e2e8f0;
+  --color-white: #ffffff;
+  --background: var(--color-ivory);
+  --foreground: var(--color-navy);
 }
 
 @theme inline {
+  --color-navy: var(--color-navy);
+  --color-navy-light: var(--color-navy-light);
+  --color-ivory: var(--color-ivory);
+  --color-gold: var(--color-gold);
+  --color-gold-light: var(--color-gold-light);
+  --color-line: var(--color-line);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+[dir="rtl"] body {
+  font-family: var(--font-body-ar), var(--font-body), system-ui, sans-serif;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display), var(--font-body), serif;
+}
+
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] .font-display {
+  font-family: var(--font-body-ar), var(--font-body), serif;
+}
+
+.container-page {
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .container-page {
+    padding-inline: 2.5rem;
+  }
+}
+
+.btn-gold {
+  background-color: var(--color-gold);
+  color: var(--color-white);
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+.btn-gold:hover {
+  background-color: var(--color-gold-light);
+}
+.btn-gold:active {
+  transform: scale(0.98);
+}
+
+.btn-outline {
+  border: 1px solid var(--color-ivory);
+  color: var(--color-ivory);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.btn-outline:hover {
+  background-color: var(--color-ivory);
+  color: var(--color-navy);
+}
+
+.card-shadow {
+  box-shadow: 0 10px 30px -10px rgba(26, 29, 32, 0.25);
 }
