@@ -17,8 +17,18 @@ export default async function HomePage({
 
   return (
     <div>
-      <section className="relative bg-navy text-ivory">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(224,52,15,0.22),_transparent_60%)]" />
+      <section className="relative overflow-hidden bg-navy text-ivory">
+        <Image
+          src="/FirstPic.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        {/* Darkens the photo so the text reads, then fades fully to dark at the bottom into the next section. */}
+        <div className="absolute inset-0 bg-navy/55" />
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-b from-transparent via-navy/60 to-navy" />
         <div className="container-page relative py-28 md:py-36 text-center">
           <h1 className="font-display text-4xl md:text-6xl leading-tight max-w-3xl mx-auto">
             {t("home.heroTitle")}
@@ -51,6 +61,7 @@ export default async function HomePage({
           sizes="100vw"
           className="object-cover object-center"
         />
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-navy to-transparent" />
         <div className="container-page relative flex items-center min-h-[34rem] md:min-h-[40rem] py-16 md:py-24">
           <div className="max-w-xl rounded-2xl bg-navy/60 backdrop-blur-[2px] ring-1 ring-white/10 p-8 md:p-10 shadow-2xl">
             <p className="text-gold-light text-sm font-semibold tracking-widest uppercase mb-3">
