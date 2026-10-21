@@ -35,10 +35,11 @@ export default async function PropertiesPage({
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-top"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/75 to-navy/40" />
-        <div className="container-page relative pt-40 pb-24 md:pt-48 md:pb-32">
+        {/* Same height as the À propos banner; extra bottom padding leaves room for the overlapping filter bar. */}
+        <div className="container-page relative flex flex-col justify-end min-h-[30rem] md:min-h-[38rem] pt-32 pb-20 md:pb-24">
           <p className="flex items-center gap-3 text-gold-light text-sm font-semibold tracking-widest uppercase">
             <span className="h-px w-10 bg-gold-light" />
             {t("heroEyebrow")}
