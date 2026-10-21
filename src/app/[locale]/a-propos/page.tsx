@@ -23,12 +23,12 @@ export default async function AboutPage({
       {/* Hero: full-bleed photo with dark gradient for legibility */}
       <section className="relative overflow-hidden text-ivory">
         <Image
-          src="/house_one.jpg"
+          src="/toppic.jpg"
           alt=""
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[center_65%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-navy/20" />
         <div className="container-page relative flex flex-col justify-end min-h-[24rem] md:min-h-[32rem] pb-14 md:pb-20">

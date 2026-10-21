@@ -105,7 +105,7 @@ export default async function HomePage({
           </div>
 
           <div className="mt-12 grid lg:grid-cols-2 gap-8">
-            <div className="rounded-2xl bg-navy-light p-8 flex flex-col">
+            <div className="rounded-2xl bg-navy/55 backdrop-blur-[2px] ring-1 ring-white/10 p-8 flex flex-col">
               <span className="font-display text-4xl text-gold">01</span>
               <h3 className="mt-4 font-display text-2xl">{t("land.houseTitle")}</h3>
               <p className="mt-3 text-ivory/75 leading-relaxed flex-1">
@@ -119,7 +119,7 @@ export default async function HomePage({
               </Link>
             </div>
 
-            <div className="rounded-2xl bg-navy-light p-8 flex flex-col ring-1 ring-gold/60">
+            <div className="rounded-2xl bg-navy/55 backdrop-blur-[2px] p-8 flex flex-col ring-1 ring-gold/60">
               <span className="font-display text-4xl text-gold">02</span>
               <h3 className="mt-4 font-display text-2xl">{t("land.partnerTitle")}</h3>
               <p className="mt-3 text-ivory/75 leading-relaxed">
