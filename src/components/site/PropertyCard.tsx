@@ -26,7 +26,7 @@ export function PropertyCard({
   return (
     <Link
       href={{ pathname: "/projets/[slug]", params: { slug: translation.slug } }}
-      className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden ring-1 ring-line card-shadow transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+      className="group flex flex-col h-full bg-cream rounded-2xl overflow-hidden ring-1 ring-line card-shadow transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
     >
       <div className="relative aspect-[4/3] bg-navy-light overflow-hidden">
         {cover ? (
@@ -48,7 +48,7 @@ export function PropertyCard({
           {property.is_new && <NewBadge />}
         </div>
         {property.units_available != null && property.status !== "sold_out" && (
-          <span className="absolute bottom-3 start-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-navy backdrop-blur">
+          <span className="absolute bottom-3 start-3 inline-flex items-center gap-1.5 rounded-full bg-cream/90 px-3 py-1 text-xs font-medium text-navy backdrop-blur">
             <BuildingIcon className="h-3.5 w-3.5" />
             {t("units", { count: property.units_available })}
           </span>

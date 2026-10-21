@@ -51,7 +51,7 @@ export function PropertyGallery({
   }
 
   const arrowClass =
-    "absolute top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white/85 text-navy shadow-lg backdrop-blur transition hover:bg-white cursor-pointer";
+    "absolute top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-cream/85 text-navy shadow-lg backdrop-blur transition hover:bg-cream cursor-pointer";
 
   return (
     <div>
@@ -82,13 +82,22 @@ export function PropertyGallery({
         onTouchStart={(e) => (touchStartX.current = e.touches[0].clientX)}
         onTouchEnd={onTouchEnd}
       >
+        {/* The whole photo is shown (contain, never cropped); a blurred copy fills the empty sides. */}
+        <Image
+          key={`${shown[active].id}-bg`}
+          src={imageUrl(shown[active].id)}
+          alt=""
+          fill
+          className="object-cover scale-110 blur-2xl opacity-60"
+          sizes="200px"
+        />
         <Image
           key={shown[active].id}
           src={imageUrl(shown[active].id)}
           alt={shown[active].caption || alt}
           fill
           priority
-          className="object-cover"
+          className="object-contain"
           sizes="(min-width: 1024px) 800px, 100vw"
         />
         {shown.length > 1 && (

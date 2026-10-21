@@ -105,7 +105,7 @@ export default async function PropertyDetailPage({
 
       <div className="container-page relative -mt-20 md:-mt-28 grid lg:grid-cols-3 gap-8 lg:gap-10 items-start">
         <div className="lg:col-span-2 min-w-0">
-          <div className="rounded-2xl bg-white p-2 sm:p-3 card-shadow ring-1 ring-line">
+          <div className="rounded-2xl bg-cream p-2 sm:p-3 card-shadow ring-1 ring-line">
             <PropertyGallery
               images={property.property_images}
               alt={translation.name}
@@ -120,7 +120,7 @@ export default async function PropertyDetailPage({
 
           <dl className="mt-6 grid grid-cols-2 xl:grid-cols-4 gap-3">
             {facts.map(({ icon: Icon, label, value }) => (
-              <div key={label} className="rounded-2xl bg-white ring-1 ring-line p-4 sm:p-5">
+              <div key={label} className="rounded-2xl bg-cream ring-1 ring-line p-4 sm:p-5">
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gold/10 text-gold">
                   <Icon className="h-4 w-4" />
                 </span>
@@ -131,7 +131,7 @@ export default async function PropertyDetailPage({
           </dl>
 
           {(translation.description || translation.short_description) && (
-            <div className="mt-6 rounded-2xl bg-white ring-1 ring-line p-6 md:p-8">
+            <div className="mt-6 rounded-2xl bg-cream ring-1 ring-line p-6 md:p-8">
               <h2 className="font-display text-2xl text-navy">{t("descriptionHeading")}</h2>
               <div className="mt-2 h-1 w-12 rounded-full bg-gold" />
               <p className="mt-5 text-navy/75 leading-relaxed whitespace-pre-line">
@@ -142,7 +142,7 @@ export default async function PropertyDetailPage({
         </div>
 
         <aside id="contact" className="lg:col-span-1 scroll-mt-28 lg:sticky lg:top-28">
-          <div className="rounded-2xl bg-white card-shadow ring-1 ring-line overflow-hidden">
+          <div className="rounded-2xl bg-cream card-shadow ring-1 ring-line overflow-hidden">
             <div className="bg-navy text-ivory p-6">
               <p className="text-xs uppercase tracking-wider text-ivory/50">{t("priceHeading")}</p>
               <p className="mt-1 font-display text-2xl">{price}</p>
@@ -191,7 +191,7 @@ export default async function PropertyDetailPage({
       {/* Phones: contact actions always within thumb reach. globals.css pads the page so the bar never hides the footer. */}
       <div
         data-mobile-bar
-        className="fixed inset-x-0 bottom-0 z-40 lg:hidden border-t border-line bg-white/95 backdrop-blur px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
+        className="fixed inset-x-0 bottom-0 z-40 lg:hidden border-t border-line bg-cream/95 backdrop-blur px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
       >
         <div className="flex items-center gap-2">
           <a

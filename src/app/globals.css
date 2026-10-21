@@ -1,16 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand palette: off-white base (60%), charcoal grounding (30%), logo red accent (10%).
-     Token names are historical: navy = charcoal, ivory = off-white, gold = logo red. */
+  /* Brand palette: warm beige base (60%), charcoal grounding (30%), logo red accent (10%).
+     Token names are historical: navy = charcoal, ivory = off-white text on dark, gold = logo red.
+     sand = page background, cream = cards and panels (never pure white: too harsh on the eyes). */
   --color-navy: #1a1d20;
   --color-navy-light: #2b303a;
   --color-ivory: #f8f9fa;
   --color-gold: #e0340f;
   --color-gold-light: #f2582f;
-  --color-line: #e2e8f0;
+  --color-sand: #f3ece2;
+  --color-cream: #fbf7f1;
+  --color-line: #e7dccc;
   --color-white: #ffffff;
-  --background: var(--color-ivory);
+  --background: var(--color-sand);
   --foreground: var(--color-navy);
 }
 
@@ -21,6 +24,8 @@
   --color-gold: var(--color-gold);
   --color-gold-light: var(--color-gold-light);
   --color-line: var(--color-line);
+  --color-sand: var(--color-sand);
+  --color-cream: var(--color-cream);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-body);
@@ -31,6 +36,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body), system-ui, sans-serif;
+  /* Text typed in the admin can hold a very long unbroken word; break it rather than spill out of its card. */
+  overflow-wrap: break-word;
 }
 
 [dir="rtl"] body {
@@ -86,6 +93,9 @@ h1, h2, h3, .font-display {
   }
 }
 
+/* Warm, slightly orange-tinted shadow so cards glow softly on the beige background. */
 .card-shadow {
-  box-shadow: 0 10px 30px -10px rgba(26, 29, 32, 0.25);
+  box-shadow:
+    0 1px 2px rgba(120, 60, 20, 0.06),
+    0 14px 34px -12px rgba(170, 80, 30, 0.22);
 }

@@ -27,7 +27,7 @@ export function InquiryForm({ propertyId }: { propertyId?: string }) {
   }
 
   const inputClass =
-    "w-full rounded-lg border border-line bg-white px-4 py-2.5 text-sm text-navy placeholder:text-navy/35 focus:outline-none focus:ring-2 focus:ring-gold/50";
+    "w-full rounded-lg border border-line bg-sand/50 px-4 py-2.5 text-sm text-navy placeholder:text-navy/35 focus:outline-none focus:ring-2 focus:ring-gold/50";
 
   return (
     <form action={formAction} className="space-y-4">

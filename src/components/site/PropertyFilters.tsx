@@ -24,7 +24,7 @@ export function PropertyFilters({ cities }: { cities: string[] }) {
   }
 
   const selectClass =
-    "w-full sm:w-auto rounded-full border border-line bg-ivory px-4 py-2.5 text-sm text-navy focus:outline-none focus:ring-2 focus:ring-gold/50 cursor-pointer";
+    "w-full sm:w-auto rounded-full border border-line bg-sand px-4 py-2.5 text-sm text-navy focus:outline-none focus:ring-2 focus:ring-gold/50 cursor-pointer";
 
   return (
     <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">

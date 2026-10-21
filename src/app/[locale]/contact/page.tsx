@@ -54,7 +54,7 @@ export default async function ContactPage({
           )}
         </div>
 
-        <div className="lg:col-span-3 bg-white rounded-2xl card-shadow p-6 md:p-8">
+        <div className="lg:col-span-3 bg-cream rounded-2xl card-shadow p-6 md:p-8">
           <h2 className="font-display text-xl text-navy mb-5">
             {t("formHeading")}
           </h2>

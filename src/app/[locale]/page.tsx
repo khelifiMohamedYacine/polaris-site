@@ -161,7 +161,7 @@ export default async function HomePage({
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-ivory py-20 md:py-28">
+      <section className="relative overflow-hidden bg-sand py-20 md:py-28">
         {/* Soft brand-red glows so the light section isn't a flat white block */}
         <div className="pointer-events-none absolute -top-40 -end-40 h-[32rem] w-[32rem] rounded-full bg-gold/10 blur-3xl" />
 
@@ -184,7 +184,7 @@ export default async function HomePage({
                 { value: String(properties.length), label: t("home.statsProjects") },
                 { value: String(cityCount), label: t("home.statsCities") },
               ].map((stat) => (
-                <div key={stat.label} className="flex flex-col-reverse rounded-2xl bg-white ring-1 ring-line p-4 sm:p-5 text-center">
+                <div key={stat.label} className="flex flex-col-reverse rounded-2xl bg-cream ring-1 ring-line p-4 sm:p-5 text-center">
                   <dt className="mt-1 text-[11px] sm:text-xs uppercase tracking-wider text-navy/50">{stat.label}</dt>
                   <dd className="font-display text-2xl sm:text-3xl text-navy">{stat.value}</dd>
                 </div>
@@ -193,7 +193,7 @@ export default async function HomePage({
           </div>
 
           {featured.length === 0 ? (
-            <div className="rounded-3xl bg-white ring-1 ring-line p-10 md:p-14 text-center">
+            <div className="rounded-3xl bg-cream ring-1 ring-line p-10 md:p-14 text-center">
               <p className="font-display text-2xl text-navy">{t("home.noProperties")}</p>
               <Link
                 href="/contact"

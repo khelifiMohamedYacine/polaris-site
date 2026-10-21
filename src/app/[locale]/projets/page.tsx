@@ -30,7 +30,7 @@ export default async function PropertiesPage({
     <div>
       <section className="relative overflow-hidden bg-navy text-ivory">
         <Image
-          src="/residence-facade.jpeg"
+          src="/latimer-lumina-external-1.webp"
           alt=""
           fill
           priority
@@ -50,7 +50,7 @@ export default async function PropertiesPage({
 
       {/* Filter bar overlapping the banner */}
       <div className="container-page relative -mt-10">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl bg-white p-4 sm:p-5 card-shadow ring-1 ring-line">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl bg-cream p-4 sm:p-5 card-shadow ring-1 ring-line">
           <PropertyFilters cities={cities} />
           <p className="text-sm text-navy/60 sm:text-end">{t("resultsCount", { count: filtered.length })}</p>
         </div>
@@ -58,7 +58,7 @@ export default async function PropertiesPage({
 
       <div className="container-page pt-12 pb-20 md:pt-16 md:pb-28">
         {filtered.length === 0 ? (
-          <div className="rounded-3xl bg-white ring-1 ring-line p-10 md:p-14 text-center">
+          <div className="rounded-3xl bg-cream ring-1 ring-line p-10 md:p-14 text-center">
             <p className="font-display text-xl text-navy">{t("empty")}</p>
             <Link
               href="/contact"

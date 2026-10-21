@@ -54,7 +54,7 @@ export default async function LocaleLayout({
       dir={dir}
       className={`${display.variable} ${body.variable} ${bodyAr.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-ivory text-navy">
+      <body className="min-h-full flex flex-col bg-sand text-navy">
         <NextIntlClientProvider>
           <Header />
           <main className="flex-1">{children}</main>
