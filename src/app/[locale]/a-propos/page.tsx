@@ -68,7 +68,7 @@ export default async function AboutPage({
       {/* Values: translucent dark cards over the photo. -mb-24 cancels the footer's top margin so the photo runs down to the footer. */}
       <section className="relative overflow-hidden text-ivory -mb-24">
         <Image
-          src="/construction.jpg"
+          src="/construction-site.jpg"
           alt=""
           fill
           sizes="100vw"
