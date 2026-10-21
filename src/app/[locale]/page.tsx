@@ -53,17 +53,18 @@ export default async function HomePage({
         </div>
       </section>
 
-      <section className="relative overflow-hidden">
-        <Image
-          src="/house_one.jpg"
-          alt={t("home.bioImageAlt")}
-          fill
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-navy to-transparent" />
-        <div className="container-page relative flex items-center min-h-[34rem] md:min-h-[40rem] py-16 md:py-24">
-          <div className="max-w-xl rounded-2xl bg-navy/60 backdrop-blur-[2px] ring-1 ring-white/10 p-8 md:p-10 shadow-2xl">
+      <section className="bg-navy text-ivory py-16 md:py-24">
+        <div className="container-page grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+          <div className="relative aspect-[4/5] max-h-[36rem] w-full rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl">
+            <Image
+              src="/residence-facade.jpeg"
+              alt={t("home.bioImageAlt")}
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover object-center"
+            />
+          </div>
+          <div className="max-w-xl">
             <p className="text-gold-light text-sm font-semibold tracking-widest uppercase mb-3">
               {t("home.bioHeading")}
             </p>
@@ -81,8 +82,18 @@ export default async function HomePage({
         </div>
       </section>
 
-      <section id="terrain" className="bg-navy text-ivory py-20 md:py-28">
-        <div className="container-page">
+      <section id="terrain" className="relative overflow-hidden bg-navy text-ivory py-20 md:py-28">
+        <Image
+          src="/house_one.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        {/* Dark layer so the text and cards stay readable, fading from the solid section above. */}
+        <div className="absolute inset-0 bg-navy/75" />
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-navy to-transparent" />
+        <div className="container-page relative">
           <div className="max-w-2xl">
             <p className="text-gold text-sm tracking-widest uppercase mb-3">
               {t("land.eyebrow")}

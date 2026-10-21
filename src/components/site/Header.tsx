@@ -19,10 +19,8 @@ export function Header() {
   ] as const;
 
   return (
-    <header className="sticky top-0 z-50 bg-navy bg-[url('/NAVBARCOLOR.avif')] bg-cover bg-center text-ivory shadow-[0_10px_30px_rgba(0,0,0,0.55)]">
-      {/* Fades the gradient to dark at the bottom edge so it blends into the dark hero below. */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-navy/30 to-navy/90" />
-      <div className="container-page relative flex items-center justify-between h-24">
+    <header className="sticky top-0 z-50 bg-gradient-to-b from-black/95 to-navy/95 backdrop-blur text-ivory shadow-[0_10px_30px_rgba(0,0,0,0.55)]">
+      <div className="container-page flex items-center justify-between h-24">
         <Link href="/" className="flex items-center gap-3 sm:gap-4 min-w-0">
           <Image
             src="/logo.jpeg"
@@ -44,9 +42,8 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                // Underline rather than the red accent: red text disappears on the orange end of the gradient.
-                className={`text-sm tracking-wide underline-offset-8 decoration-2 transition-colors ${
-                  active ? "text-white font-semibold underline" : "text-ivory/90 hover:text-white hover:underline"
+                className={`text-sm tracking-wide transition-colors ${
+                  active ? "text-gold font-semibold" : "text-ivory hover:text-gold"
                 }`}
               >
                 {link.label}
@@ -70,7 +67,7 @@ export function Header() {
       </div>
 
       {open && (
-        <nav className="relative md:hidden border-t border-white/10 bg-navy">
+        <nav className="md:hidden border-t border-white/10 bg-navy">
           <div className="container-page py-4 flex flex-col gap-4">
             {links.map((link) => (
               <Link
