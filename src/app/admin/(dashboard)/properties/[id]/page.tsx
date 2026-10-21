@@ -20,7 +20,7 @@ export default async function EditPropertyPage({
   const [translations, images] = await Promise.all([
     query<PropertyTranslation>("SELECT * FROM property_translations WHERE property_id = $1", [id]),
     query<PropertyImage>(
-      `SELECT id, property_id, caption, sort_order, is_cover, created_at
+      `SELECT id, property_id, kind, caption, sort_order, is_cover, created_at
        FROM property_images WHERE property_id = $1 ORDER BY sort_order`,
       [id],
     ),
@@ -39,8 +39,27 @@ export default async function EditPropertyPage({
       </h1>
 
       <div className="mb-10">
-        <h2 className="font-display text-lg text-navy mb-4">Photos</h2>
-        <ImageUploader propertyId={id} images={images} />
+        <h2 className="font-display text-lg text-navy">Photos du bâtiment</h2>
+        <p className="text-sm text-navy/60 mt-1 mb-4">
+          Vues extérieures. La photo de couverture apparaît sur la carte du projet en page d&apos;accueil.
+        </p>
+        <ImageUploader
+          propertyId={id}
+          kind="building"
+          images={images.filter((img) => img.kind === "building")}
+        />
+      </div>
+
+      <div className="mb-10">
+        <h2 className="font-display text-lg text-navy">Photos des appartements</h2>
+        <p className="text-sm text-navy/60 mt-1 mb-4">
+          Vues intérieures, affichées quand un visiteur ouvre le projet.
+        </p>
+        <ImageUploader
+          propertyId={id}
+          kind="interior"
+          images={images.filter((img) => img.kind === "interior")}
+        />
       </div>
 
       <PropertyForm property={property} translations={translations} />

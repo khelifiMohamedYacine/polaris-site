@@ -22,7 +22,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
           { locale: nextLocale },
         )
       }
-      className={`inline-flex items-center gap-2 rounded-full border border-white/25 px-4 py-1.5 text-sm font-medium tracking-wide hover:border-gold hover:text-gold transition-colors cursor-pointer ${className}`}
+      className={`inline-flex items-center gap-2 rounded-full border border-white/40 px-4 py-1.5 text-sm font-medium tracking-wide hover:border-white hover:bg-white/10 transition-colors cursor-pointer ${className}`}
       lang={nextLocale}
       aria-label="Changer de langue / تغيير اللغة"
     >

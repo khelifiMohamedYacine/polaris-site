@@ -15,7 +15,8 @@ export function PropertyCard({
   const t = useTranslations("properties");
   const locale = useLocale() as Locale;
   const translation = translationFor(property, locale);
-  const cover = property.property_images[0];
+  // Images arrive cover-first; the card always shows a building photo, never an interior one.
+  const cover = property.property_images.find((img) => img.kind === "building");
 
   if (!translation) return null;
 

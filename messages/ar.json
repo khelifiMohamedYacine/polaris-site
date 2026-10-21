@@ -60,6 +60,8 @@
   },
   "propertyDetail": {
     "galleryAlt": "صورة مشروع {name}",
+    "galleryInterior": "الشقق",
+    "galleryBuilding": "المبنى",
     "descriptionHeading": "الوصف",
     "detailsHeading": "الخصائص",
     "unitsAvailable": "الشقق المتوفرة",

@@ -19,7 +19,7 @@ export function Header() {
   ] as const;
 
   return (
-    <header className="sticky top-0 z-50 bg-navy/95 backdrop-blur text-ivory border-b border-white/10">
+    <header className="sticky top-0 z-50 bg-navy bg-[url('/NAVBARCOLOR.avif')] bg-cover bg-center text-ivory border-b border-white/10">
       <div className="container-page flex items-center justify-between h-24">
         <Link href="/" className="flex items-center gap-3 sm:gap-4 min-w-0">
           <Image
@@ -42,8 +42,9 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm tracking-wide transition-colors ${
-                  active ? "text-gold font-semibold" : "text-ivory hover:text-gold"
+                // Underline rather than the red accent: red text disappears on the orange end of the gradient.
+                className={`text-sm tracking-wide underline-offset-8 decoration-2 transition-colors ${
+                  active ? "text-white font-semibold underline" : "text-ivory/90 hover:text-white hover:underline"
                 }`}
               >
                 {link.label}

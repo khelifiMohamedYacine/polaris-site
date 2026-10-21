@@ -60,6 +60,8 @@
   },
   "propertyDetail": {
     "galleryAlt": "Photo du projet {name}",
+    "galleryInterior": "Appartements",
+    "galleryBuilding": "Le bâtiment",
     "descriptionHeading": "Description",
     "detailsHeading": "Caractéristiques",
     "unitsAvailable": "Appartements disponibles",

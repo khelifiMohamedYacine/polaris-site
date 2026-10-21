@@ -36,9 +36,13 @@ export interface PropertyTranslation {
   description: string | null;
 }
 
+/** Building photos are the outside shots (cover on cards); interior photos show the apartments. */
+export type ImageKind = "building" | "interior";
+
 export interface PropertyImage {
   id: string;
   property_id: string;
+  kind: ImageKind;
   caption: string | null;
   sort_order: number;
   is_cover: boolean;

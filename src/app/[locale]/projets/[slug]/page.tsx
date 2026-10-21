@@ -65,6 +65,7 @@ export default async function PropertyDetailPage({
             <PropertyGallery
               images={property.property_images}
               alt={translation.name}
+              labels={{ interior: t("galleryInterior"), building: t("galleryBuilding") }}
             />
           </div>
 

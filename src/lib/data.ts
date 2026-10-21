@@ -12,7 +12,7 @@ const PROPERTY_SELECT = `
     ) AS property_translations,
     COALESCE(
       (SELECT json_agg(json_build_object(
-          'id', i.id, 'property_id', i.property_id, 'caption', i.caption,
+          'id', i.id, 'property_id', i.property_id, 'kind', i.kind, 'caption', i.caption,
           'sort_order', i.sort_order, 'is_cover', i.is_cover, 'created_at', i.created_at
         ) ORDER BY i.sort_order)
        FROM property_images i WHERE i.property_id = p.id),

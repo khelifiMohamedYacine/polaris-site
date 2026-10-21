@@ -9,13 +9,15 @@ import {
   setCoverImage,
   moveImage,
 } from "@/lib/actions/properties";
-import type { PropertyImage } from "@/types/database";
+import type { ImageKind, PropertyImage } from "@/types/database";
 
 export function ImageUploader({
   propertyId,
+  kind,
   images,
 }: {
   propertyId: string;
+  kind: ImageKind;
   images: PropertyImage[];
 }) {
   const [uploading, setUploading] = useState(false);
@@ -44,6 +46,7 @@ export function ImageUploader({
         }
         const body = new FormData();
         body.append("files", file);
+        body.append("kind", kind);
         const res = await fetch(`/api/admin/properties/${propertyId}/images`, { method: "POST", body });
         if (!res.ok) {
           errors.push(`${file.name} : échec de l'envoi.`);
@@ -126,7 +129,7 @@ export function ImageUploader({
                   </button>
                 </div>
                 <div className="flex gap-1">
-                  {!img.is_cover && (
+                  {kind === "building" && !img.is_cover && (
                     <button
                       type="button"
                       disabled={isPending}

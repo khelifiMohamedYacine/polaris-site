@@ -58,6 +58,9 @@ CREATE TABLE IF NOT EXISTS property_images (
   created_at timestamptz NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS property_images_property_idx ON property_images (property_id);
+-- 'building': outside shots, one of them the cover on project cards. 'interior': apartment photos.
+ALTER TABLE property_images ADD COLUMN IF NOT EXISTS kind text NOT NULL DEFAULT 'building'
+  CHECK (kind IN ('building', 'interior'));
 
 CREATE TABLE IF NOT EXISTS inquiries (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),

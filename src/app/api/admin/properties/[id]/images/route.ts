@@ -13,6 +13,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
 
   const formData = await request.formData();
   const files = formData.getAll("files").filter((f): f is File => f instanceof File);
+  const kind = formData.get("kind") === "interior" ? "interior" : "building";
 
   let uploaded = 0;
   const errors: string[] = [];
@@ -29,11 +30,14 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
 
     try {
       await query(
-        `INSERT INTO property_images (property_id, data, content_type, sort_order, is_cover)
-         SELECT $1, $2, $3,
-           COALESCE((SELECT max(sort_order) + 1 FROM property_images WHERE property_id = $1), 0),
-           NOT EXISTS (SELECT 1 FROM property_images WHERE property_id = $1)`,
-        [propertyId, new Uint8Array(await file.arrayBuffer()), file.type],
+        // The first building photo becomes the cover; interior photos never are.
+        `INSERT INTO property_images (property_id, data, content_type, kind, sort_order, is_cover)
+         SELECT $1, $2, $3, $4,
+           COALESCE((SELECT max(sort_order) + 1 FROM property_images WHERE property_id = $1 AND kind = $4), 0),
+           $4 = 'building' AND NOT EXISTS (
+             SELECT 1 FROM property_images WHERE property_id = $1 AND kind = 'building'
+           )`,
+        [propertyId, new Uint8Array(await file.arrayBuffer()), file.type, kind],
       );
       uploaded++;
     } catch (err) {

@@ -50,7 +50,7 @@ export default async function AdminPropertiesPage() {
             const fr = property.property_translations.find((t) => t.locale === "fr");
             const cover =
               property.property_images.find((i) => i.is_cover) ??
-              property.property_images[0];
+              property.property_images.find((i) => i.kind === "building");
 
             return (
               <Link

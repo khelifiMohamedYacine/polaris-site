@@ -156,7 +156,7 @@ export async function removePropertyImage(imageId: string, propertyId: string) {
   if (image?.is_cover) {
     await query(
       `UPDATE property_images SET is_cover = true WHERE id = (
-         SELECT id FROM property_images WHERE property_id = $1 ORDER BY sort_order LIMIT 1
+         SELECT id FROM property_images WHERE property_id = $1 AND kind = 'building' ORDER BY sort_order LIMIT 1
        )`,
       [propertyId],
     );
@@ -168,7 +168,13 @@ export async function removePropertyImage(imageId: string, propertyId: string) {
 
 export async function setCoverImage(imageId: string, propertyId: string) {
   await assertAdmin();
-  await query("UPDATE property_images SET is_cover = (id = $1) WHERE property_id = $2", [imageId, propertyId]);
+  // Only a building photo can be the cover.
+  await query(
+    `UPDATE property_images SET is_cover = (id = $1)
+     WHERE property_id = $2 AND kind = 'building'
+       AND EXISTS (SELECT 1 FROM property_images WHERE id = $1 AND kind = 'building')`,
+    [imageId, propertyId],
+  );
   revalidatePath(`/admin/properties/${propertyId}`);
   revalidatePublicPages();
 }
@@ -180,9 +186,12 @@ export async function moveImage(
 ) {
   await assertAdmin();
 
+  // Building and interior photos are ordered separately.
   const images = await query<{ id: string; sort_order: number }>(
-    "SELECT id, sort_order FROM property_images WHERE property_id = $1 ORDER BY sort_order",
-    [propertyId],
+    `SELECT id, sort_order FROM property_images
+     WHERE property_id = $1 AND kind = (SELECT kind FROM property_images WHERE id = $2)
+     ORDER BY sort_order`,
+    [propertyId, imageId],
   );
 
   const index = images.findIndex((img) => img.id === imageId);
