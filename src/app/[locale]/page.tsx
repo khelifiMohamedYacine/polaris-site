@@ -206,14 +206,23 @@ export default async function HomePage({
             </div>
           ) : (
             <>
-              <div className="space-y-8">
+              {/* Phones: compact cards in a swipeable row, the next one peeking in at the edge. */}
+              <div className="sm:hidden -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pt-1 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {featured.map((property) => (
+                  <div key={property.id} className="w-[82%] shrink-0 snap-start">
+                    <PropertyCard property={property} />
+                  </div>
+                ))}
+              </div>
+
+              <div className="hidden sm:block space-y-8">
                 {spotlights.map((property) => (
                   <PropertySpotlight key={property.id} property={property} />
                 ))}
               </div>
               {cards.length > 0 && (
                 <div
-                  className={`mt-8 grid sm:grid-cols-2 gap-6 lg:gap-8 ${cards.length === 3 ? "lg:grid-cols-3" : ""}`}
+                  className={`hidden sm:grid mt-8 sm:grid-cols-2 gap-6 lg:gap-8 ${cards.length === 3 ? "lg:grid-cols-3" : ""}`}
                 >
                   {cards.map((property) => (
                     <PropertyCard key={property.id} property={property} />
