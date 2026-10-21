@@ -62,13 +62,15 @@ export default async function HomePage({
 
       <section className="bg-navy text-ivory py-16 md:py-24">
         <div className="container-page grid md:grid-cols-2 gap-10 md:gap-16 items-center">
-          <div className="relative aspect-[4/5] max-h-[36rem] w-full rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl">
+          {/* The logo file has a white background: multiply blends it into the cream panel. */}
+          <div className="rounded-2xl bg-cream p-6 sm:p-10 shadow-2xl ring-1 ring-white/10">
             <Image
-              src="/residence-facade.jpeg"
-              alt={t("home.bioImageAlt")}
-              fill
-              sizes="(min-width: 768px) 50vw, 100vw"
-              className="object-cover object-center"
+              src="/logo-polaris.png"
+              alt="POLARIS Construction"
+              width={2172}
+              height={724}
+              sizes="(min-width: 768px) 45vw, 90vw"
+              className="w-full h-auto mix-blend-multiply"
             />
           </div>
           <div className="max-w-xl">
