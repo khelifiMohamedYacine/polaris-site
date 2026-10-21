@@ -43,10 +43,10 @@ export default async function AboutPage({
 
       {/* Story: façade photo beside the text, then the closing line as a highlight */}
       <section className="container-page py-16 md:py-24 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-        <div className="relative aspect-[4/5] w-full max-w-md mx-auto lg:max-w-none rounded-2xl overflow-hidden card-shadow">
+        <div className="relative aspect-[3/2] w-full max-w-xl mx-auto lg:max-w-none rounded-2xl overflow-hidden card-shadow">
           <Image
-            src="/residence-facade.jpeg"
-            alt={t("facadeAlt")}
+            src="/polaris-construction.jpg"
+            alt="POLARIS Construction"
             fill
             sizes="(min-width: 1024px) 560px, 100vw"
             className="object-cover"
@@ -65,14 +65,14 @@ export default async function AboutPage({
         </div>
       </section>
 
-      {/* Values: translucent dark cards over the photo */}
-      <section className="relative overflow-hidden text-ivory">
+      {/* Values: translucent dark cards over the photo. -mb-24 cancels the footer's top margin so the photo runs down to the footer. */}
+      <section className="relative overflow-hidden text-ivory -mb-24">
         <Image
-          src="/house_one.jpg"
+          src="/construction.jpg"
           alt=""
           fill
           sizes="100vw"
-          className="object-cover object-bottom"
+          className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-navy/70" />
         <div className="container-page relative py-20 md:py-28">
