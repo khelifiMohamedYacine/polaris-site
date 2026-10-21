@@ -22,7 +22,12 @@
     "featuredHeading": "Projets à la une",
     "latestHeading": "Dernières réalisations",
     "viewAll": "Voir tous les projets",
-    "noProperties": "De nouveaux projets seront bientôt publiés."
+    "noProperties": "De nouveaux projets seront bientôt publiés.",
+    "featuredEyebrow": "Nos réalisations",
+    "featuredSubtitle": "Découvrez nos résidences, conçues avec exigence pour offrir qualité, confort et sérénité.",
+    "statsFounded": "Création",
+    "statsProjects": "Projets",
+    "statsCities": "Villes"
   },
   "land": {
     "eyebrow": "Vous avez un terrain ?",
@@ -56,7 +61,12 @@
     "resultsCount": "{count} projet(s)",
     "empty": "Aucun projet ne correspond à votre recherche pour le moment.",
     "priceOnRequest": "Sur demande",
-    "viewProject": "Voir le projet"
+    "viewProject": "Voir le projet",
+    "heroEyebrow": "Résidences POLARIS",
+    "priceLabel": "Prix",
+    "unitsLabel": "Appartements disponibles",
+    "units": "{count, plural, =0 {Aucun appartement disponible} one {# appartement disponible} other {# appartements disponibles}}",
+    "emptyCta": "Nous contacter"
   },
   "propertyDetail": {
     "galleryAlt": "Photo du projet {name}",
@@ -74,7 +84,13 @@
     "enquiryIntro": "Laissez-nous vos coordonnées, notre équipe vous recontactera rapidement au sujet de ce projet.",
     "whatsappButton": "Contacter sur WhatsApp",
     "whatsappMessage": "Bonjour, je souhaite obtenir plus d'informations sur le projet {name}.",
-    "soldOutNotice": "Ce projet est actuellement vendu. Vous pouvez tout de même nous contacter pour être informé(e) de projets similaires."
+    "soldOutNotice": "Ce projet est actuellement vendu. Vous pouvez tout de même nous contacter pour être informé(e) de projets similaires.",
+    "backToListShort": "Tous les projets",
+    "statusLabel": "Disponibilité",
+    "contactCta": "Demander des informations",
+    "callButton": "Appeler",
+    "previousPhoto": "Photo précédente",
+    "nextPhoto": "Photo suivante"
   },
   "about": {
     "eyebrow": "Depuis 2015",

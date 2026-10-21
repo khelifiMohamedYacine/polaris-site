@@ -24,10 +24,10 @@ export function PropertyFilters({ cities }: { cities: string[] }) {
   }
 
   const selectClass =
-    "rounded-full border border-line bg-white px-4 py-2 text-sm text-navy focus:outline-none focus:ring-2 focus:ring-gold/50";
+    "w-full sm:w-auto rounded-full border border-line bg-ivory px-4 py-2.5 text-sm text-navy focus:outline-none focus:ring-2 focus:ring-gold/50 cursor-pointer";
 
   return (
-    <div className="mt-8 flex flex-wrap gap-3">
+    <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
       <select
         className={selectClass}
         defaultValue={searchParams.get("city") ?? ""}

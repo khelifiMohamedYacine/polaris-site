@@ -15,7 +15,7 @@ export default async function ContactPage({
 
   return (
     <div>
-      <section className="bg-navy text-ivory py-20 md:py-28">
+      <section className="bg-navy text-ivory pt-40 pb-20 md:pt-48 md:pb-28">
         <div className="container-page">
           <h1 className="font-display text-4xl md:text-5xl">{t("pageTitle")}</h1>
           <p className="mt-4 text-ivory/75 max-w-xl">{t("pageSubtitle")}</p>

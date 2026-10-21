@@ -22,7 +22,12 @@
     "featuredHeading": "مشاريع مميزة",
     "latestHeading": "آخر المشاريع",
     "viewAll": "عرض جميع المشاريع",
-    "noProperties": "ستُنشر مشاريع جديدة قريباً."
+    "noProperties": "ستُنشر مشاريع جديدة قريباً.",
+    "featuredEyebrow": "إنجازاتنا",
+    "featuredSubtitle": "اكتشفوا مساكننا المصممة بعناية لتوفير الجودة والراحة والطمأنينة.",
+    "statsFounded": "سنة التأسيس",
+    "statsProjects": "مشاريع",
+    "statsCities": "مدن"
   },
   "land": {
     "eyebrow": "هل تملكون قطعة أرض؟",
@@ -56,7 +61,12 @@
     "resultsCount": "{count} مشروع",
     "empty": "لا يوجد حالياً أي مشروع يطابق بحثكم.",
     "priceOnRequest": "السعر عند الطلب",
-    "viewProject": "عرض المشروع"
+    "viewProject": "عرض المشروع",
+    "heroEyebrow": "مساكن POLARIS",
+    "priceLabel": "السعر",
+    "unitsLabel": "الشقق المتوفرة",
+    "units": "{count} شقة متوفرة",
+    "emptyCta": "اتصل بنا"
   },
   "propertyDetail": {
     "galleryAlt": "صورة مشروع {name}",
@@ -74,7 +84,13 @@
     "enquiryIntro": "اتركوا لنا بياناتكم، وسيتواصل معكم فريقنا في أقرب وقت بخصوص هذا المشروع.",
     "whatsappButton": "تواصل عبر واتساب",
     "whatsappMessage": "السلام عليكم، أود الحصول على مزيد من المعلومات حول مشروع {name}.",
-    "soldOutNotice": "نفدت وحدات هذا المشروع حالياً. يمكنكم التواصل معنا للاطلاع على مشاريع مشابهة."
+    "soldOutNotice": "نفدت وحدات هذا المشروع حالياً. يمكنكم التواصل معنا للاطلاع على مشاريع مشابهة.",
+    "backToListShort": "جميع المشاريع",
+    "statusLabel": "التوفر",
+    "contactCta": "طلب معلومات",
+    "callButton": "اتصال",
+    "previousPhoto": "الصورة السابقة",
+    "nextPhoto": "الصورة التالية"
   },
   "about": {
     "eyebrow": "منذ 2015",

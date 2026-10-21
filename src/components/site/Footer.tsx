@@ -8,7 +8,7 @@ export async function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-navy text-ivory mt-24">
+    <footer className="bg-navy text-ivory">
       <div className="container-page py-14">
         <div>
           <p className="font-display text-xl">

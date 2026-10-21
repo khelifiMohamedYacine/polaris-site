@@ -19,7 +19,9 @@ export function Header() {
   ] as const;
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-b from-black/95 to-navy/95 backdrop-blur text-ivory shadow-[0_10px_30px_rgba(0,0,0,0.55)]">
+    // -mb-24 (the bar's height) lets each page's dark top section slide under the see-through bar;
+    // those sections add matching top padding.
+    <header className="sticky top-0 z-50 -mb-24 bg-gradient-to-b from-black/60 to-navy/35 backdrop-blur-md text-ivory shadow-[0_8px_24px_rgba(0,0,0,0.25)]">
       <div className="container-page flex items-center justify-between h-24">
         <Link href="/" className="flex items-center gap-3 sm:gap-4 min-w-0">
           <Image
